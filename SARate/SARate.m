@@ -28,7 +28,6 @@
 
 #import "SARate.h"
 #import "SARateViewController.h"
-#import "AppDelegate.h"
 
 @interface SARate()
 
