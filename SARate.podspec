@@ -11,7 +11,8 @@ Pod::Spec.new do |s|
   s.author       = { "Andrei Solovjev" => "andrei@solovjev.com" }
   s.platform     = :ios, "5.0"
   s.source       = { :git => "https://github.com/Discobanan/SARate.git", :tag => "0.0.1" }
-  s.source_files = "SARate", "SARate/*.{h,m}", "SARate/iRate/*.{h,m}"
+  s.source_files = "SARate", "SARate/*.{h,m}"
+  s.dependency 	 'iRate', '~> 1.11.3'
   s.resources    = "SARate/*.png", "SARate/iRate/iRate.bundle"
   s.frameworks   = "QuartzCore", "MessageUI"
   s.requires_arc = true
