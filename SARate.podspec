@@ -6,14 +6,14 @@ Pod::Spec.new do |s|
                    SARate will display a custom alert after the app has been started
                    a few times, and ask the user to rate it. 
                    DESC
-  s.homepage     = "https://github.com/Discobanan/SARate"
+  s.homepage     = "https://github.com/Awesometimes/SARate"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Andrei Solovjev" => "andrei@solovjev.com" }
   s.platform     = :ios, "5.0"
-  s.source       = { :git => "https://github.com/Discobanan/SARate.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/Awesometimes/SARate.git", :tag => "0.0.1" }
   s.source_files = "SARate", "SARate/*.{h,m}"
   s.dependency 	 'iRate', '~> 1.11.3'
-  s.resources    = "SARate/*.png", "SARate/iRate/iRate.bundle"
+  s.resources    = "SARate/*.png"
   s.frameworks   = "QuartzCore", "MessageUI"
   s.requires_arc = true
 end

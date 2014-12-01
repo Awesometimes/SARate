@@ -26,10 +26,23 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
+@class SARateViewController;
+
+@protocol SARateViewControllerDelegate <NSObject>
+
+- (void)rateButtonTappedForController:(SARateViewController *)controller;
+
+@end
+
 @interface SARateViewController : UIViewController<MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, assign) BOOL isShowed;
 
+/**
+ The max rating a user will enter to prompt the app store review.
+ Default = 5
+ */
+@property (nonatomic, assign) NSInteger ratingNumberThreshold;
 @property (nonatomic, strong) NSString *headerLabelText;
 @property (nonatomic, strong) NSString *descriptionLabelText;
 @property (nonatomic, strong) NSString *rateButtonLabelText;
@@ -48,6 +61,8 @@
 @property (nonatomic, strong) NSString *emailErrorAlertTitle;
 @property (nonatomic, strong) NSString *emailErrorAlertText;
 @property (nonatomic, strong) NSString *okText;
+
+@property (nonatomic, weak) id<SARateViewControllerDelegate> delegate;
 
 
 @end

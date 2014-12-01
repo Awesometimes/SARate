@@ -27,11 +27,10 @@
 //
 
 #import "SARate.h"
-#import "SARateViewController.h"
 
 @interface SARate()
 
-@property (nonatomic, strong) SARateViewController *mySARateViewController;
+@property (nonatomic, strong, readwrite) SARateViewController *mySARateViewController;
 
 @end
 
@@ -45,6 +44,8 @@
         return;
     }
     _mySARateViewController = [[SARateViewController alloc] init];
+    _mySARateViewController.delegate = self.rateViewControllerDelegate;
+    _mySARateViewController.ratingNumberThreshold = self.ratingNumberThreshold;
     _mySARateViewController.headerLabelText = self.headerLabelText;
     _mySARateViewController.descriptionLabelText = self.descriptionLabelText;
     _mySARateViewController.rateButtonLabelText = self.rateButtonLabelText;
@@ -85,6 +86,13 @@
     return sharedInstance;
 }
 
+- (NSInteger)ratingNumberThreshold
+{
+    if (_ratingNumberThreshold == nil) {
+        _ratingNumberThreshold = 5;
+    }
+    return _ratingNumberThreshold;
+}
 
 -(NSString *)headerLabelText{
     if (_headerLabelText == nil){

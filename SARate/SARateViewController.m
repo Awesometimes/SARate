@@ -191,25 +191,37 @@
         [alertView show];
         return;
     }
-    
-    if (_mark == 5){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:_appstoreRaitingAlertTitle
-                                                        message:_appstoreRaitingAlertMessage
-                                                       delegate:self
-                                              cancelButtonTitle:_appstoreRaitingCancel
-                                              otherButtonTitles:_appstoreRaitingButton, nil];
-        [alert show];
-        return;
-        
+
+    if (_ratingNumberThreshold) {
+        if (_mark >= _ratingNumberThreshold) {
+            [self showReviewAppAlertView];
+            return;
+        }
+    } else {
+        if (_mark == 5){
+            [self showReviewAppAlertView];
+            return;
+        }
         
     }
-    
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:_disadvantagesAlertTitle message:_disadvantagesAlertMessage delegate:nil cancelButtonTitle:_okText otherButtonTitles:nil];
-    [alertView show];
-    [self sendMail];
-    
+    if ([self.delegate respondsToSelector:@selector(rateButtonTappedForController:)]) {
+        [self.delegate rateButtonTappedForController:self];
+    }
+
+    [self.view removeFromSuperview];
+
+    self.isShowed = NO;
 }
 
+- (void)showReviewAppAlertView
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:_appstoreRaitingAlertTitle
+                                                    message:_appstoreRaitingAlertMessage
+                                                   delegate:self
+                                          cancelButtonTitle:_appstoreRaitingCancel
+                                          otherButtonTitles:_appstoreRaitingButton, nil];
+    [alert show];
+}
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -219,8 +231,6 @@
     }
     _isShowed = NO;
     [self.view removeFromSuperview];
-    
-
 }
 
 

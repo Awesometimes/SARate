@@ -27,10 +27,17 @@
 
 #import "iRate.h"
 
+#import "SARateViewController.h"
+
 @interface SARate : iRate
 
 + (SARate *)sharedInstance;
 
+/** 
+ The max rating a user will enter to prompt the app store review.
+ Default = 5
+ */
+@property (nonatomic, assign) NSInteger ratingNumberThreshold;
 @property (nonatomic, strong) NSString *headerLabelText;
 @property (nonatomic, strong) NSString *descriptionLabelText;
 @property (nonatomic, strong) NSString *rateButtonLabelText;
@@ -49,5 +56,9 @@
 @property (nonatomic, strong) NSString *emailErrorAlertTitle;
 @property (nonatomic, strong) NSString *emailErrorAlertText;
 @property (nonatomic, strong) NSString *okText;
+
+/** Exposing to set the delegate */
+@property (nonatomic, strong, readonly) SARateViewController *mySARateViewController;
+@property (nonatomic, weak) id<SARateViewControllerDelegate> rateViewControllerDelegate;
 
 @end
