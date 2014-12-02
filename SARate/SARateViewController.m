@@ -37,6 +37,8 @@
 @property (nonatomic, strong) UIButton *star4;
 @property (nonatomic, strong) UIButton *star5;
 
+@property (nonatomic, strong) UIAlertView *alertView;
+
 @property (nonatomic, assign) int mark;
 
 @end
@@ -53,11 +55,11 @@
     
     float width = 260.0;
     float height = 190.0;
-    UIView *alertView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(width/2), (self.view.frame.size.height/2)-(height/2), width, height)];
-    alertView.backgroundColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1];
-    alertView.layer.masksToBounds = YES;
-    alertView.layer.cornerRadius = 10.0;
-    [self.view addSubview:alertView];
+    self.alertView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(width/2), (self.view.frame.size.height/2)-(height/2), width, height)];
+    self.alertView.backgroundColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1];
+    self.alertView.layer.masksToBounds = YES;
+    self.alertView.layer.cornerRadius = 10.0;
+    [self.view addSubview:self.alertView];
     
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, width-10, 30)];
     headerLabel.numberOfLines = 1;
@@ -65,7 +67,7 @@
     headerLabel.text = _headerLabelText;
     headerLabel.font = [UIFont boldSystemFontOfSize:16];
     headerLabel.textAlignment = NSTextAlignmentCenter;
-    [alertView addSubview:headerLabel];
+    [self.alertView addSubview:headerLabel];
     
     
     UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, width-10, 60)];
@@ -74,8 +76,7 @@
     descriptionLabel.text = _descriptionLabelText;
     descriptionLabel.font = [UIFont systemFontOfSize:14];
     descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    [alertView addSubview:descriptionLabel];
-    
+    [self.alertView addSubview:descriptionLabel];
 
     float starWeight = 30.0;
     float starHeight = 30.0;
@@ -88,8 +89,7 @@
     [_star1 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star1.tag = 1;
     _star1.frame = CGRectMake(43, starY, starWeight, starHeight);
-    [alertView addSubview:_star1];
-    // 30 на 30
+    [self.alertView addSubview:_star1];
     
     
     _star2 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -98,7 +98,7 @@
     [_star2 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star2.tag = 2;
     _star2.frame = CGRectMake(_star1.frame.origin.x+starWeight+separatorWidth, starY, starWeight, starHeight);
-    [alertView addSubview:_star2];
+    [self.alertView addSubview:_star2];
     
     
     _star3 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -107,7 +107,7 @@
     [_star3 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star3.tag = 3;
     _star3.frame = CGRectMake(_star2.frame.origin.x+starWeight+separatorWidth, starY, starWeight, starHeight);
-    [alertView addSubview:_star3];
+    [self.alertView addSubview:_star3];
     
     
     _star4 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -116,7 +116,7 @@
     [_star4 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star4.tag = 4;
     _star4.frame = CGRectMake(_star3.frame.origin.x+starWeight+separatorWidth, starY, starWeight, starHeight);
-    [alertView addSubview:_star4];
+    [self.alertView addSubview:_star4];
     
     
     _star5 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -125,7 +125,7 @@
     [_star5 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star5.tag = 5;
     _star5.frame = CGRectMake(_star4.frame.origin.x+starWeight+separatorWidth, starY, starWeight, starHeight);
-    [alertView addSubview:_star5];
+    [self.alertView addSubview:_star5];
     
     
     UIButton *rateButton;
@@ -141,7 +141,7 @@
     [rateButton addTarget:self action:@selector(setRaiting) forControlEvents:UIControlEventTouchUpInside];
     rateButton.layer.borderWidth = 1;
     rateButton.layer.borderColor = [[UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:181.0/255.0 alpha:1] CGColor];
-    [alertView addSubview:rateButton];
+    [self.alertView addSubview:rateButton];
     
     
     UIButton *cancelButton;
@@ -157,7 +157,7 @@
     [cancelButton addTarget:self action:@selector(hideRaiting) forControlEvents:UIControlEventTouchUpInside];
     cancelButton.layer.borderWidth = 1;
     cancelButton.layer.borderColor = [[UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:181.0/255.0 alpha:1] CGColor];
-    [alertView addSubview:cancelButton];
+    [self.alertView addSubview:cancelButton];
     
     _isShowed = YES;
     
@@ -300,5 +300,18 @@
     
 }
 
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+
+    self.alertView.frame = [self centerAlertFrame];
+}
+
+- (CGRect)centerAlertFrame
+{
+    static float width = 260.0;
+    static float height = 190.0;
+    return CGRectMake((self.view.frame.size.width/2)-(width/2), (self.view.frame.size.height/2)-(height/2), width, height);
+}
 
 @end
