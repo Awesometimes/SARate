@@ -31,6 +31,10 @@
 @protocol SARateViewControllerDelegate <NSObject>
 
 - (void)rateButtonTappedForController:(SARateViewController *)controller;
+/** Called when the user selects a rating passed the ratingNumberThreshold */
+- (void)showReviewAppAlertViewWillAppearForController:(SARateViewController*)controller;
+
+- (void)alertViewDidAppearForController:(SARateViewController*)controller;
 
 @end
 
@@ -38,6 +42,7 @@
 
 @property (nonatomic, assign) BOOL isShowed;
 
+@property (nonatomic, assign, readonly) int mark;
 /**
  The max rating a user will enter to prompt the app store review.
  Default = 5

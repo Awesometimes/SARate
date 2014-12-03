@@ -163,7 +163,14 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 
+    if ([self.delegate respondsToSelector:@selector(alertViewDidAppearForController:)]) {
+        [self.delegate alertViewDidAppearForController:self];
+    }
+}
 
 - (void)setRaiting:(id)object {
     if ([object isKindOfClass:[UIButton class]]) {
@@ -215,6 +222,10 @@
 
 - (void)showReviewAppAlertView
 {
+    if ([self.delegate respondsToSelector:@selector(showReviewAppAlertViewWillAppearForController:)]) {
+        [self.delegate showReviewAppAlertViewWillAppearForController:self];
+    }
+
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:_appstoreRaitingAlertTitle
                                                     message:_appstoreRaitingAlertMessage
                                                    delegate:self

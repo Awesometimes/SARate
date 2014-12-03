@@ -69,10 +69,13 @@
     
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window addSubview:_mySARateViewController.view];
-    
-    //inform about prompt
-    [self.delegate iRateDidPromptForRating];
-    
+
+    if (self.iRateDelegate) {
+        [iRate sharedInstance].delegate = self.iRateDelegate;
+    } else {
+        //inform about prompt
+        [self.delegate iRateDidPromptForRating];
+    }
 }
 
 

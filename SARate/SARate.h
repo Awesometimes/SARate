@@ -60,5 +60,6 @@
 /** Exposing to set the delegate */
 @property (nonatomic, strong, readonly) SARateViewController *mySARateViewController;
 @property (nonatomic, weak) id<SARateViewControllerDelegate> rateViewControllerDelegate;
+@property (nonatomic, weak) id<iRateDelegate> iRateDelegate;
 
 @end
