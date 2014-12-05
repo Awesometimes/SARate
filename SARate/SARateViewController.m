@@ -29,6 +29,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "iRate.h"
 
+const CGRect CGRectiPadLandscape = { { 0.0f, 0.0f }, { 1024.0f, 768.0f } };
+const CGRect CGRectiPadPotrait = { { 0.0f, 0.0f }, { 768, 1024.0f } };
+
 @interface SARateViewController ()
 
 @property (nonatomic, strong) UIButton *star1;
@@ -51,7 +54,7 @@
     _mark = 0;
     
     self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
-    
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     
     float width = 260.0;
     float height = 190.0;
@@ -84,8 +87,8 @@
     float separatorWidth = 5.0;
     
     _star1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_star1 setImage:[UIImage imageNamed:@"star-gray.png"] forState:UIControlStateNormal];
-    [_star1 setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateSelected];
+    [_star1 setImage:[UIImage imageNamed:self.normalStarImageName] forState:UIControlStateNormal];
+    [_star1 setImage:[UIImage imageNamed:self.selectedStarImageName] forState:UIControlStateSelected];
     [_star1 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star1.tag = 1;
     _star1.frame = CGRectMake(43, starY, starWeight, starHeight);
@@ -93,8 +96,8 @@
     
     
     _star2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_star2 setImage:[UIImage imageNamed:@"star-gray.png"] forState:UIControlStateNormal];
-    [_star2 setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateSelected];
+    [_star2 setImage:[UIImage imageNamed:self.normalStarImageName] forState:UIControlStateNormal];
+    [_star2 setImage:[UIImage imageNamed:self.selectedStarImageName] forState:UIControlStateSelected];
     [_star2 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star2.tag = 2;
     _star2.frame = CGRectMake(_star1.frame.origin.x+starWeight+separatorWidth, starY, starWeight, starHeight);
@@ -102,8 +105,8 @@
     
     
     _star3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_star3 setImage:[UIImage imageNamed:@"star-gray.png"] forState:UIControlStateNormal];
-    [_star3 setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateSelected];
+    [_star3 setImage:[UIImage imageNamed:self.normalStarImageName] forState:UIControlStateNormal];
+    [_star3 setImage:[UIImage imageNamed:self.selectedStarImageName] forState:UIControlStateSelected];
     [_star3 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star3.tag = 3;
     _star3.frame = CGRectMake(_star2.frame.origin.x+starWeight+separatorWidth, starY, starWeight, starHeight);
@@ -111,8 +114,8 @@
     
     
     _star4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_star4 setImage:[UIImage imageNamed:@"star-gray.png"] forState:UIControlStateNormal];
-    [_star4 setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateSelected];
+    [_star4 setImage:[UIImage imageNamed:self.normalStarImageName] forState:UIControlStateNormal];
+    [_star4 setImage:[UIImage imageNamed:self.selectedStarImageName] forState:UIControlStateSelected];
     [_star4 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star4.tag = 4;
     _star4.frame = CGRectMake(_star3.frame.origin.x+starWeight+separatorWidth, starY, starWeight, starHeight);
@@ -120,8 +123,8 @@
     
     
     _star5 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_star5 setImage:[UIImage imageNamed:@"star-gray.png"] forState:UIControlStateNormal];
-    [_star5 setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateSelected];
+    [_star5 setImage:[UIImage imageNamed:self.normalStarImageName] forState:UIControlStateNormal];
+    [_star5 setImage:[UIImage imageNamed:self.selectedStarImageName] forState:UIControlStateSelected];
     [_star5 addTarget:self action:@selector(setRaiting:) forControlEvents:UIControlEventTouchUpInside];
     _star5.tag = 5;
     _star5.frame = CGRectMake(_star4.frame.origin.x+starWeight+separatorWidth, starY, starWeight, starHeight);
@@ -315,6 +318,16 @@
 {
     [super viewWillLayoutSubviews];
 
+    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (currentOrientation == UIInterfaceOrientationPortrait || currentOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+            self.view.frame = CGRectiPadPotrait;
+        } else {
+            self.view.frame = CGRectiPadLandscape;
+        }
+    }
+
     self.alertView.frame = [self centerAlertFrame];
 }
 
@@ -324,5 +337,6 @@
     static float height = 190.0;
     return CGRectMake((self.view.frame.size.width/2)-(width/2), (self.view.frame.size.height/2)-(height/2), width, height);
 }
+
 
 @end

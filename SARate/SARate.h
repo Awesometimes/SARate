@@ -57,6 +57,10 @@
 @property (nonatomic, strong) NSString *emailErrorAlertText;
 @property (nonatomic, strong) NSString *okText;
 
+@property (nonatomic, strong) NSString *normalStarImageName;
+@property (nonatomic, strong) NSString *selectedStarImageName;
+
+@property (nonatomic, strong) UIView *containingView;
 /** Exposing to set the delegate */
 @property (nonatomic, strong, readonly) SARateViewController *mySARateViewController;
 @property (nonatomic, weak) id<SARateViewControllerDelegate> rateViewControllerDelegate;

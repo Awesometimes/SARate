@@ -63,12 +63,17 @@
     _mySARateViewController.emailText = self.emailText;
     _mySARateViewController.emailErrorAlertText = self.emailErrorAlertText;
     _mySARateViewController.okText = self.okText;
-    
-    [_mySARateViewController.view setFrame:[[UIScreen mainScreen] bounds]];
-    
-    
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    [window addSubview:_mySARateViewController.view];
+    _mySARateViewController.selectedStarImageName = self.selectedStarImageName;
+    _mySARateViewController.normalStarImageName = self.normalStarImageName;
+
+    if (self.containingView) {
+        _mySARateViewController.view.frame = self.containingView.frame;
+        [self.containingView addSubview:_mySARateViewController.view];
+    } else {
+        [_mySARateViewController.view setFrame:[[UIScreen mainScreen] bounds]];
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        [window addSubview:_mySARateViewController.view];
+    }
 
     if (self.iRateDelegate) {
         [iRate sharedInstance].delegate = self.iRateDelegate;
@@ -241,6 +246,20 @@
     return _okText;
 }
 
+- (NSString *)normalStarImageName
+{
+    if (_normalStarImageName == nil) {
+        _normalStarImageName = @"star-gray.png";
+    }
+    return _normalStarImageName;
+}
 
+- (NSString *)selectedStarImageName
+{
+    if (_selectedStarImageName == nil) {
+        _selectedStarImageName = @"star.png";
+    }
+    return _selectedStarImageName;
+}
 
 @end
