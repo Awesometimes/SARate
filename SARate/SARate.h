@@ -25,7 +25,7 @@
 //
 //
 
-#import "iRate.h"
+#import <iRate/iRate.h>
 
 #import "SARateViewController.h"
 
